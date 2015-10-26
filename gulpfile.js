@@ -48,7 +48,7 @@ jsonSources = [outputDir + 'js/*.json'];
 gulp.task('coffee', function(){
 	gulp.src(coffeeSources)
 		.pipe(coffee({bare: true})
-			.on('error', gutil.log))
+		.on('error', gutil.log))
 		.pipe(gulp.dest('components/scripts'))
 });
 
@@ -70,7 +70,7 @@ gulp.task('compass', function() {
 		image: outputDir + 'image',
 		style: sassStyle
 	})
-		.on('error', gutil.log))
+	.on('error', gutil.log))
 	.pipe(gulp.dest(outputDir + 'css'))
 	.pipe(connect.reload()) // Server reload
 });
@@ -79,7 +79,7 @@ gulp.task('compass', function() {
 gulp.task('html', function() {
 	gulp.src('builds/development/*.html')
 		.pipe(gulpif(env === 'production', jsonminify()))
-		.pipe(gulpif(env === 'production', gulp.dest('builds/production/js')))
+		.pipe(gulpif(env === 'production', gulp.dest(outputDir)))
 		.pipe(connect.reload()) // Server reload
 });
 
@@ -87,7 +87,7 @@ gulp.task('html', function() {
 gulp.task('json', function() {
 	gulp.src('builds/development/js/*.json')
 		.pipe(gulpif(env === 'production', minifyHTML()))
-		.pipe(gulpif(env === 'production', gulp.dest(outputDir)))
+		.pipe(gulpif(env === 'production', gulp.dest('builds/production/js')))
 		.pipe(connect.reload()) // Server reload
 });
 
